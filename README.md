@@ -13,3 +13,7 @@ Alternatively go to the Add-On Store, Click the three dots, then Repositories, a
 ```
 https://github.com/dimquea/hassio
 ```
+
+- **[Spoolman](/spoolman/README.md)**
+
+    Keep track of your inventory of 3D-printer filament spools.
