@@ -4,22 +4,23 @@
 ORANGE='\033[0;33m'
 NC='\033[0m' # No Color
 
-echo -e "${ORANGE}Updating .env${NC}"
+echo -e "${ORANGE}Updating enviroment${NC}"
 
-base_path=""
+export SPOOLMAN_DB_TYPE=sqlite
+export SPOOLMAN_DIR_DATA=/config
+export SPOOLMAN_DIR_BACKUPS=/config/backups
+export SPOOLMAN_DIR_LOGS=/config
+export SPOOLMAN_HOST=0.0.0.0
+export SPOOLMAN_PORT=7912
 if bashio::config.has_value 'base_path' ;then
-    base_path=$(bashio::config 'base_path')
+    SPOOLMAN_BASE_PATH=$(bashio::config 'base_path')
+    export SPOOLMAN_BASE_PATH
 fi
-env="SPOOLMAN_DB_TYPE=sqlite
+SPOOLMAN_DEBUG_MODE=$(bashio::config 'debug_mode')
+export SPOOLMAN_DEBUG_MODE
 SPOOLMAN_LOGGING_LEVEL=$(bashio::config 'log_level')
+export SPOOLMAN_LOGGING_LEVEL
 SPOOLMAN_AUTOMATIC_BACKUP=$(bashio::config 'auto_backup')
-SPOOLMAN_DIR_DATA=/config
-SPOOLMAN_DIR_BACKUPS=/config/backups
-SPOOLMAN_DIR_LOGS=/config
-SPOOLMAN_HOST=0.0.0.0
-SPOOLMAN_PORT=7912
-SPOOLMAN_BASE_PATH=${base_path}
-SPOOLMAN_DEBUG_MODE=$(bashio::config 'debug_mode')"
-echo "$env" | tee /var/spoolman/.env
+export SPOOLMAN_AUTOMATIC_BACKUP
 
 /var/spoolman/scripts/start.sh
