@@ -1,5 +1,5 @@
 name: Spoolman
-version: 0.21.0
+version: 0.29.1
 description: Run the stable version of Spoolman.
 url: https://github.com/dimquea/hassio/tree/main/spoolman
 slug: spoolman
@@ -15,7 +15,7 @@ map:
   - addon_config:rw
 boot: auto
 options:
-  log_level: "INFO"
+  log_level: "ERROR"
   auto_backup: true
   debug_mode: false
 schema:
