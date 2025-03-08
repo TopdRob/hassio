@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # ANSI color codes
 GREEN='\033[0;32m'
@@ -38,66 +38,6 @@ else
     echo -e "${ORANGE}Please look up how to install Python 3.9 or later for your specific operating system.${NC}"
     exit 1
 fi
-#
-# Get os package manager
-#
-if [[ -f /etc/os-release ]]; then
-    source /etc/os-release
-    if [[ "$ID_LIKE" == *"debian"* || "$ID" == *"debian"* ]]; then
-        pkg_manager="apt-get"
-        update_cmd="$pkg_manager update"
-        install_cmd="$pkg_manager install -y"
-        echo -e "${GREEN}Detected Debian-based system. Using apt-get package manager.${NC}"
-    elif [[ "$ID_LIKE" == *"arch"* || "$ID" == *"arch"* ]]; then
-        pkg_manager="pacman"
-        update_cmd="$pkg_manager -Sy"
-        install_cmd="$pkg_manager -S --noconfirm"
-        echo -e "${GREEN}Detected Arch-based system. Using pacman package manager.${NC}"
-    else
-        echo -e "${ORANGE}Your operating system is not supported. Either try to install manually or reach out to spoolman github for support.${NC}"
-        exit 1
-    fi
-fi
-
-# Run pkg manager update
-echo -e "${GREEN}Updating $pkg_manager cache...${NC}"
-$update_cmd || exit 1
-packages=""
-if ! python3 -c 'import venv, ensurepip' &>/dev/null; then
-    echo -e "${ORANGE}Python venv module is not accessible. Installing venv...${NC}"
-    if [[ "$pkg_manager" == "apt-get" ]]; then
-        packages+=" python3-venv"
-    elif [[ "$pkg_manager" == "pacman" ]]; then
-        packages+=" python-virtualenv"
-    fi
-fi
-
-if ! command -v pip3 &>/dev/null; then
-    echo -e "${ORANGE}Python pip is not installed. Installing pip...${NC}"
-    if [[ "$pkg_manager" == "apt-get" ]]; then
-        packages+=" python3-pip"
-    elif [[ "$pkg_manager" == "pacman" ]]; then
-        packages+=" python-pip"
-    fi
-fi
-
-if ! command -v pg_config &>/dev/null; then
-    echo -e "${ORANGE}pg_config is not available. Installing libpq-dev...${NC}"
-    if [[ "$pkg_manager" == "apt-get" ]]; then
-        packages+=" libpq-dev"
-    elif [[ "$pkg_manager" == "pacman" ]]; then
-        packages+=" postgresql-libs"
-    fi
-fi
-
-if ! command -v unzip &>/dev/null; then
-    echo -e "${ORANGE}unzip is not available. Installing unzip...${NC}"
-    packages+=" unzip"
-fi
-
-if [[ -n "$packages" ]]; then
-    $install_cmd $packages || exit 1
-fi
 
 #
 # Update pip
@@ -123,28 +63,6 @@ else
 fi
 
 #
-# Install various pip packages if needed
-#
-echo -e "${GREEN}Installing system-wide pip packages needed for Spoolman...${NC}"
-if [[ $is_externally_managed_env ]]; then
-    echo -e "${GREEN}Installing the packages using apt-get instead of pip since pip is externally managed...${NC}"
-    if [[ "$pkg_manager" == "apt-get" ]]; then
-        packages="python3-setuptools python3-wheel"
-    elif [[ "$pkg_manager" == "pacman" ]]; then
-        packages="python-setuptools python-wheel"
-    fi
-    $install_cmd $packages || exit 1
-else
-    packages="setuptools wheel"
-    for package in $packages; do
-        if ! pip3 show "$package" &>/dev/null; then
-            echo -e "${GREEN}Installing $package...${NC}"
-            pip3 install --user "$package" || exit 1
-        fi
-    done
-fi
-
-#
 # Add python bin dir to PATH if needed
 #
 user_python_bin_dir=$(python3 -m site --user-base)/bin
@@ -155,8 +73,6 @@ fi
 #
 # Install Spoolman
 #
-
-ls
 
 # Install dependencies
 echo -e "${GREEN}Installing Spoolman backend and its dependencies...${NC}"
