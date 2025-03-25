@@ -1,6 +1,6 @@
 # Spoolman Add-on
 
-Run own Spoolman instance as Home Assistant Add-on
+Run own [Spoolman](https://github.com/Donkie/Spoolman/) instance as Home Assistant Add-on
 
 <img alt="Icon of a filament spool" src="https://github.com/Donkie/Spoolman/assets/2332094/3c120b3a-1422-42f6-a16b-8d5a07c33000">
 
