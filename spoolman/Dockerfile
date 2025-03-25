@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.2.1
 FROM ${BUILD_FROM}
 
-ARG SPOOLMAN_VERSION="v0.21.0"
+ARG SPOOLMAN_VERSION="v0.22.1"
 
 ENV PATH="/root/.local/bin:${PATH}"
 

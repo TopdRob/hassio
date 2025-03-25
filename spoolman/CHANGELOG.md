@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.22.1.0
+
+- Bump Spoolman to 0.22.1
+- Fix version mistake
+
 ## 0.29.1
 
 - Change image to hassio-addons/base:17.2.1
