@@ -8,6 +8,8 @@ Spoolman is a self-hosted web service designed to help you efficiently manage yo
 
 Add-on have some options, that uses as Spoolman [env](https://github.com/Donkie/Spoolman/blob/master/.env.example) options.
 
+Backup you spoolman.db before any updates.
+
 ### Option: `log_level`
 
 The `log_level` option controls the level of log output by the Spoolman itself.

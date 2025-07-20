@@ -1,7 +1,7 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.2.1
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:18.0.3
 FROM ${BUILD_FROM}
 
-ARG SPOOLMAN_VERSION="v0.22.1"
+ARG SPOOLMAN_VERSION
 
 ENV PATH="/root/.local/bin:${PATH}"
 
@@ -21,7 +21,6 @@ RUN apk add --no-cache \
     py3-wheel \
     py3-pdm-backend \
     py3-virtualenv \
-    libpq-dev \
     && source_url=$(curl -s https://api.github.com/repos/Donkie/Spoolman/releases/tags/${SPOOLMAN_VERSION} | jq -r '.assets[] | select(.name == "spoolman.zip").browser_download_url') \
     && curl -sSL $source_url -o /tmp/temp.zip \
     && unzip /tmp/temp.zip -d /var/spoolman \
