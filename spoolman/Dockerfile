@@ -21,7 +21,6 @@ RUN apk add --no-cache \
     py3-wheel \
     py3-pdm-backend \
     py3-virtualenv \
-    libpq-dev \
     && source_url=$(curl -s https://api.github.com/repos/Donkie/Spoolman/releases/tags/${SPOOLMAN_VERSION} | jq -r '.assets[] | select(.name == "spoolman.zip").browser_download_url') \
     && curl -sSL $source_url -o /tmp/temp.zip \
     && unzip /tmp/temp.zip -d /var/spoolman \
