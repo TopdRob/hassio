@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.22.1.1
+
+- bump hassio-addons/base to 18.0.3
+- remove libpq-dev to solve issue#3
+
 ## 0.22.1.0
 
 - Bump Spoolman to 0.22.1
