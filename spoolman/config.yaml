@@ -8,6 +8,7 @@ arch:
   - aarch64
   - amd64
   - armv7
+ingress: true
 startup: application
 udev: true
 webui: "[PROTO:option_name]://[HOST]:[PORT:7912]"
