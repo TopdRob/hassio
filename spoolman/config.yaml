@@ -3,18 +3,20 @@ version: 0.22.1.1
 description: Run the stable version of Spoolman.
 url: https://github.com/dimquea/hassio/tree/main/spoolman
 slug: spoolman
-homeassistant_api: true
-host_network: true
 init: false
 arch:
   - aarch64
   - amd64
   - armv7
-ingress: true
-ingress_port: 0
 startup: application
 udev: true
-webui: "[PROTO:option_name]://[HOST]:[PORT:7912]"
+# Ingress inschakelen en een sidebar-pictogram toewijzen
+ingress: true
+panel_icon: mdi:spool
+# Verwijder de volgende regels
+# webui: "[PROTO:option_name]://[HOST]:[PORT:7912]"
+# ports:
+#   7912/tcp: 7912
 map:
   - addon_config:rw
 boot: auto
@@ -27,5 +29,3 @@ schema:
   auto_backup: bool
   base_path: str?
   debug_mode: bool
-ports:
-  7912/tcp: 7912
